@@ -4,7 +4,7 @@ function Home() {
       
       <img
         className="home-ufo-image"
-        src="https://news.asu.edu/sites/default/files/styles/block_image_16_9_lge/public/ufo_aliens_thought_huddle.jpg.png?itok=KiUitD8j"
+        src="https://pngimg.com/uploads/ufo/ufo_PNG71660.png"
         alt="OVNI sobrevoando o céu"
       /><h1>Bem vindo ao Diário ET!</h1>
         <div className="ufo">
