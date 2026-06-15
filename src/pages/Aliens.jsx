@@ -6,7 +6,7 @@ import api from "../services/api.js";
 const url = "/aliens";
 
 function Aliens() {
-  const { nomeUsuario } = useAuth();
+  
   const [modeEdit, setModeEdit] = useState(false);
   const [aliens, setAliens] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -133,8 +133,7 @@ function Aliens() {
   return (
     <section>
       <h1>Aliens</h1>
-      {nomeUsuario && <p className="usuario-logado">Olá, {nomeUsuario}</p>}
-
+      
       <button
         className="open-modal-button"
         onClick={abrirModalCadastro}

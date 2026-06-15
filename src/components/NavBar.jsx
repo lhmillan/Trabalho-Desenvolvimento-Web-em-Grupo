@@ -1,29 +1,44 @@
-import { Link, useNavigate } from 'react-router-dom';
-//import './Navbar.css'; // Tem q criar o arquivo desse css
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
+import { GiUfo } from "react-icons/gi";
 
 
 function Navbar() {
-
   const navigate = useNavigate();
+  const { estaAutenticado, logout } = useAuth();
 
-  function logout() {
-    localStorage.removeItem("tokenAcesso");
-    navigate("/");
+  async function sair() {
+    await logout();
+    navigate("/login");
   }
 
-  return (
-    <nav className="navbar">
-      <h2>Diário ET</h2>
 
+  return (
+
+    <nav className="navbar">
+      <h2><GiUfo />Diário ET</h2>
+    
       <ul>
         <li><Link to="/home">Home</Link></li>
-        <li><Link to="/avistamentos">Avistamentos</Link></li>
-        <li><Link to="/aliens">Aliens</Link></li>
-        <li><Link to="/planetas">Planetas</Link></li>
+        {estaAutenticado && (
+          <>
+            <Link to="/aliens">Aliens</Link>
+            <Link to="/planetas">Planetas</Link>
+            <Link to="/avistamentos">Avistamentos</Link>
+          </>
+        )}
+        {estaAutenticado ? (
+          <button className="menu-button" type="button" onClick={sair}>
+            Sair
+          </button>
+        ) : (
+          <>
+            <Link to="/logins">Login</Link>
+            <Link to="/cadastros">Cadastro</Link>
+          </>
+        )}
 
-        <li>
-          <button onClick={logout}>Sair</button>
-        </li>
+
 
       </ul>
     </nav>

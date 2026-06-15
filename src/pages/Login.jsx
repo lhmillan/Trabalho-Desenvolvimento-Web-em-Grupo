@@ -1,68 +1,83 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [formLogin, setFormLogin] = useState({
+    email: "",
+    senha: "",
+  });
+  const [carregando, setCarregando] = useState(false);
+  const [mensagem, setMensagem] = useState("");
 
-  async function fazerLogin() {
-  try {
-    const resposta = await fetch(
-      "https://api.serratec.mwmsoftware.com/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          senha,
-        }),
-      }
-    );
+  function atualizarCampo(event) {
+    const { name, value } = event.target;
 
-    const dados = await resposta.json();
-
-    console.log(dados);
-
-localStorage.setItem("token", dados.tokenAcesso);
-
-navigate("/home");
-  } catch (erro) {
-    console.log(erro);
-    alert("Erro ao fazer login");
+    setFormLogin((formAtual) => ({
+      ...formAtual,
+      [name]: value,
+    }));
   }
-}
+
+  async function enviarLogin(event) {
+    event.preventDefault();
+    setMensagem("");
+
+    try {
+      setCarregando(true);
+      await login(formLogin);
+      navigate("/aliens");
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setMensagem("Email ou senha inválidos.");
+    } finally {
+      setCarregando(false);
+    }
+  }
+
   return (
-    <section>
-      <h1>Login</h1>
+    <section className="login-page">
+      <form className="login-form" onSubmit={enviarLogin}>
+        <h1>Login</h1>
 
-      <input
-        type="email"
-        placeholder="Digite seu email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <label>
+          Email
+          <input
+            autoComplete="email"
+            name="email"
+            onChange={atualizarCampo}
+            placeholder="seu@email.com"
+            required
+            type="email"
+            value={formLogin.email}
+          />
+        </label>
 
-      <br />
-      <br />
+        <label>
+          Senha
+          <input
+            autoComplete="current-password"
+            name="senha"
+            onChange={atualizarCampo}
+            placeholder="Digite sua senha"
+            required
+            type="password"
+            value={formLogin.senha}
+          />
+        </label>
 
-      <input
-        type="password"
-        placeholder="Digite sua senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
-      />
+        {mensagem && <p className="mensagem erro">{mensagem}</p>}
 
-      <br />
-      <br />
+        <button disabled={carregando} type="submit">
+          {carregando ? "Entrando..." : "Entrar"}
+        </button>
 
-    <button onClick={fazerLogin}>
-      Entrar
-    </button>
-
+        <Link className="form-link" to="/cadastro">
+          Criar uma conta
+        </Link>
+      </form>
     </section>
   );
 }
