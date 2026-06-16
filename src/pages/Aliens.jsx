@@ -132,6 +132,7 @@ function Aliens() {
   
   return (
     <section>
+      <div className="titulo">
       <h1>Aliens</h1>
       
       <button
@@ -155,8 +156,8 @@ function Aliens() {
           </div>
         </div>
       )}
-
-
+</div>
+<br/>
       {mensagem && <p className="mensagem">{mensagem}</p>}
       {loading ? (
         <p>Carregando aliens...</p>

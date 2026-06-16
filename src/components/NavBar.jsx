@@ -16,7 +16,7 @@ function Navbar() {
   return (
 
     <nav className="navbar">
-      <h2><GiUfo />Diário ET</h2>
+      <h2 className="diario-et"><GiUfo />Diário ET</h2>
     
       <ul>
         <li><Link to="/home">Home</Link></li>

@@ -148,6 +148,7 @@ function Planetas() {
 
   return (
     <section>
+      <div className="titulo">
       <h1>Planetas</h1>
 
       <button
@@ -175,7 +176,7 @@ function Planetas() {
           </div>
         </div>
       )}
-
+</div>
       {mensagem && <p>{mensagem}</p>}
 
       {loading ? (

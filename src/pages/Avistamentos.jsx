@@ -109,9 +109,9 @@ function Avistamentos() {
         listaAtual.map((avistamento) =>
           avistamento.id === formAvistamento.id
             ? {
-                ...avistamento,
-                ...avistamentoAtualizado,
-              }
+              ...avistamento,
+              ...avistamentoAtualizado,
+            }
             : avistamento
         )
       );
@@ -148,34 +148,35 @@ function Avistamentos() {
 
   return (
     <section>
-      <h1>Avistamentos</h1>
+      <div className="titulo">
+        <h1>Avistamentos</h1>
 
-      <button
-        type="button"
-        className="open-modal-button"
-        onClick={abrirModalCadastro}
-      >
-        Cadastrar Avistamento
-      </button>
+        <button
+          type="button"
+          className="open-modal-button"
+          onClick={abrirModalCadastro}
+        >
+          Cadastrar Avistamento
+        </button>
 
-      {modalAberto && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <FormAvistamento
-              modeEdit={modeEdit}
-              salvarAvistamento={
-                modeEdit
-                  ? editarAvistamento
-                  : salvarAvistamento
-              }
-              fecharModal={fecharModal}
-              formAvistamento={formAvistamento}
-              setFormAvistamento={setFormAvistamento}
-            />
+        {modalAberto && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <FormAvistamento
+                modeEdit={modeEdit}
+                salvarAvistamento={
+                  modeEdit
+                    ? editarAvistamento
+                    : salvarAvistamento
+                }
+                fecharModal={fecharModal}
+                formAvistamento={formAvistamento}
+                setFormAvistamento={setFormAvistamento}
+              />
+            </div>
           </div>
-        </div>
-      )}
-
+        )}
+      </div>
       {mensagem && <p>{mensagem}</p>}
 
       {loading ? (
