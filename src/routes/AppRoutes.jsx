@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Avistamentos from '../pages/Avistamentos';
 import Aliens from '../pages/Aliens';
 import Planetas from '../pages/Planetas';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 import PrivateRoute from './PrivateRoute';
 
 function AppRoutes() {
@@ -23,7 +24,14 @@ function AppRoutes() {
           />
           
         <Route path="/avistamentos" element={<Avistamentos />} />
-        <Route path="/aliens" element={<Aliens />} />
+        <Route
+  path="/aliens"
+  element={
+    <PrivateRoute>
+      <Aliens />
+    </PrivateRoute>
+      }
+/>
         <Route path="/planetas" element={<Planetas />} />
       </Routes>
     </BrowserRouter>
