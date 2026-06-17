@@ -342,7 +342,16 @@ button:disabled {
   border: 1px solid #d9e1ea;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 6px 18px rgba(16, 32, 51, 0.06);
+  box-shadow: 0 6px 10px #2176ff;
+  animation: brilho 5s infinite;
+}
+
+.alien-card:hover{
+  transform: scale(1.06);
+  transition: ease-in-out 0.4s ;
+  @keyframes brilho {
+  80% {box-shadow: 10px 20px 30px blue;}
+}
 }
 
 .avistamento-list {
